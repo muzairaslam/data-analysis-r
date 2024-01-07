@@ -1,0 +1,132 @@
+---
+title: "Data Analysis in R"
+subtitle: "Lecture 1"
+author: "Muhammad Uzair Aslam"
+format: revealjs
+editor: visual
+incremental: true
+echo: true
+output-location: fragment
+---
+
+## Introduction
+
+-   My name is Uzair Aslam
+-   Founder \@ [Stat Devs](https://statdevs.com/), a Data Analytics Company.
+-   Currently Data Scientist \@ Stat Devs.
+-   Consulted \@ Cube Statistica as Junior Data Scientist.
+-   Worked as Data Analyst for Indus Hospital & Health Networks.
+-   BSc Economics & Math, IBA (2022)
+-   Find me on [Linked In](https://www.linkedin.com/in/uzairdatascientist/)
+-   Find me on [Github](https://github.com/muzairaslam)
+
+## Objectives of Class
+
+-   Installing R Programming Language
+-   Installing R Studio
+-   Overview of R Studio IDE
+-   Introduction to R object types
+-   Lab Exercise
+
+## Whatis R?
+
+-   R is a language and environment for data analysis, computing and graphics
+-   R is the open source implementation of the S language, which was developed by Bell laboratories
+-   R is both open source and open development (source: <http://www.r-project.org/>)
+-   Consistent syntax for running the analysis.
+-   High level language (Human Friendly)
+
+## Installing R
+
+-   Install the latest version from: <http://cran.r-project.org/>
+
+## Installing R Studio
+
+-   Install R Studio from: <https://posit.co/download/rstudio-desktop/>
+
+## Basic Operations
+
+```{r}
+2 + 2
+
+2 * 4
+
+2 ^ 3
+
+2 / 3
+
+
+2 + (2 * 3) ^ 2
+
+(1 + 3) / 2 + 45
+
+```
+
+## R Objects
+
+-   R has five basic or “atomic” classes of objects
+
+-   Character
+
+-   Numeric (real numbers)
+
+-   Integer
+
+-   Complex
+
+-   Logical (True/False)
+
+## Variables
+
+-   R uses "=" or "\<-" to assign values to a variable name and are case sensitive i.e X and x are different
+
+```{r}
+x <- 2
+
+x * 4
+
+x + 2
+
+# numeric class
+class(x)
+
+# checking if it is numeric class
+is.numeric(x)
+```
+
+## Character Class
+
+-   A character object is used to represent string values in R.
+
+```{r}
+y <- "Hello World!"
+
+print(y)
+
+# find the class of object y
+class(y)
+
+# find the structure of the object.
+str(y)
+
+```
+
+## Logical Class
+
+Standard logical operations are "&" (and), "\|" (or), and "!"(negation).
+
+```{r}
+
+#Standard Logical Operations 
+u = TRUE; v = FALSE 
+
+#u AND v
+u & v  
+
+#u OR v
+u | v 
+
+# negation of u
+!u
+```
+
