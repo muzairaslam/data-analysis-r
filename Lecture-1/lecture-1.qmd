@@ -6,7 +6,6 @@ format: revealjs
 editor: visual
 incremental: true
 echo: true
-output-location: fragment
 ---
 
 ## Introduction

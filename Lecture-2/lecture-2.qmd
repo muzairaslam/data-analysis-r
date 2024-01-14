@@ -1,0 +1,294 @@
+---
+title: "Data Analysis in R"
+subtitle: "Lecture 2"
+author: "Muhammad Uzair Aslam"
+format: revealjs
+editor: visual
+incremental: true
+echo: true
+---
+
+
+## Last Week
+
+- Installing R and R Studio
+- Getting familiar with R Studio Interface
+- 5 Atomic Classes of Objects
+- Variables 
+- Character and Logical Class
+
+## This Week
+
+- Vector
+- Lists
+- Data Frames and Tibble
+- Importing & Exporting Data
+- Data Cleaning in R
+
+
+## Vector
+
+- Vector is a basic `data structure` in R. 
+
+- It contains elements of the same type. 
+
+![](vector-summary-tree.png)
+
+## Types of Vector in R
+
+- The data types of a vector can be logical, integer, double, character, complex or raw
+
+![](atomic-summary-tree.png)
+
+
+## Creating vectors
+
+```{r}
+lgl_var <- c(TRUE, FALSE)
+print(lgl_var)
+int_var <- c(1L, 6L, 10L)
+print(int_var)
+dbl_var <- c(1, 2.5, 4.5)
+print(dbl_var)
+chr_var <- c("these are", "some strings")
+print(chr_var)
+```
+
+
+## Checking vector type and length
+
+- A vector's type can be checked with the `typeof()` function
+
+```{r}
+typeof(dbl_var)
+```
+
+- Another important property of a vector is its length
+
+- This is the number of elements in the vector and can be checked with the function `length()`
+
+
+```{r}
+length(dbl_var)
+```
+
+
+## Lists
+
+- Lists are a step up in complexity from atomic vectors: each element can be any type, not just vectors.
+
+- You construct lists with `list()`
+
+```{r}
+l1 <- list(
+  1:3, 
+  "a", 
+  c(TRUE, FALSE, TRUE), 
+  c(2.3, 5.9)
+)
+
+typeof(l1)
+```
+
+## List Output
+
+```{r}
+print(l1)
+```
+
+## List are build from vectors
+
+- Vectors are fundemetal blocks.
+
+- List are made from vectors.
+
+- Data Frames and tibble are made from lists
+
+ ![](list-summary-tree.png)
+
+
+## Data frames
+
+- If you do data analysis in R, you’re going to be using data frames.
+
+-  A data frame is a named list of vectors with `attributes` for  names, row.names, and its class, `data.frame`
+
+## Creating data frame
+
+```{r}
+# create data frame
+df1 <- data.frame(x = 1:3, y = letters[1:3])
+print(df1)
+typeof(df1)
+```
+
+
+```{r}
+# meta data of an object.
+attributes(df1)
+```
+
+## Helpful functions
+
+```{r}
+# get the rownames
+rownames(df1)
+
+# get the column names
+colnames(df1)
+
+# number of rows in data
+nrow(df1)
+
+# number of columns in data
+ncol(df1)
+```
+
+
+## Tibbles
+
+- Modern Data frames used in R
+
+- Tibbles are provided by the tibble package and share the same structure as data frames.
+
+- The only difference is that the class vector is longer, and includes `tbl_df`.
+
+## Creating tibble
+
+```{r}
+# loading tibble package
+library(tibble)
+
+# creating data frame in tibble
+df2 <- tibble(x = 1:3, y = letters[1:3])
+
+# find the type of this object
+typeof(df2)
+
+# how this object made
+attributes(df2)
+
+```
+
+
+## Printing tibble
+
+
+```{r}
+print(df2)
+```
+
+
+
+## Complete Data Analysis Project
+
+- End to end data science/data analysis project involves importing, cleaning, transforming, visualising, modelling and communicating your findings of data.
+
+![](whole-game.png)
+
+
+## Data Import
+
+- There can be number of sources where data is extracted or imported:
+
+1. CSV files
+2. Excel files (Spreadsheets)
+3. Databases
+4. Arrow (Big data systems)
+5. Hierarchical data
+6. Scraping data from web
+7. ...
+
+## Tidyverse
+
+![](tidyverse-packages)
+
+
+## Importing data from CSV
+
+- We use `{readr}` package  which is part of the core from `{tidyverse}`.
+
+
+```{r}
+library(tidyverse)
+students <- read_csv("https://pos.it/r4ds-students-csv",
+                      na = c("", "N/A"),)
+dim(students)
+```
+
+```{r}
+head(students)
+```
+
+## Cleaning data (Columns)
+
+- We always start with making column names more readable
+- `Student ID`, `Full Name` are "nonsyntatic names".
+- This is because the column names are starting with `.
+
+```{r}
+students |> 
+  rename(
+    student_id = `Student ID`,
+    full_name = `Full Name`
+  )
+```
+
+## Cleaning data (Columns)
+
+- Still our column names need cleaning since they should be "snake case"
+
+- We will use `{janitor}` package which will help us clean column names.
+
+```{r}
+library(janitor)
+students <- students |> clean_names()
+head(students)
+```
+
+## Cleaning data (Data types)
+
+```{r}
+head(students)
+```
+
+- We will have to correct data types for `meal_plan` to factor and `age` to character.
+
+```{r}
+students <- students |>
+  mutate(meal_plan = factor(meal_plan))
+```
+
+- `mutate()` means to add new transformed column
+
+## Cleaning data (Data types)
+
+- We will change `"five"` to numeric `5` and make column type as `dbl`
+
+```{r}
+students <- students |>
+  mutate(
+    age = if_else(age == "five", "5", age),
+    age = parse_number(age)
+  )
+students
+```
+
+## Homework
+
+- Read chapter 3 of `Advance R` : <https://adv-r.hadley.nz/index.html>
+
+- Read chapter 7 and 20 of `R for Data Science 2nd edition`
+
+
+## Lab Exercise
+
+1. Import Data from <https://www.kaggle.com/competitions/hp-supply-chain-optimization/overview>
+
+2. Do basic data cleaning for columns
+
+3. Change data types of columns
+
+4. Make data ready for analysis
+
+5. Data Analysis 
